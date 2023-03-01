@@ -45,6 +45,7 @@ if __name__ == '__main__':
         ittiKochFrameProcession.ittiKochFrameProcession()
         print("Erstellen der Saliency Maps abgeschlossen.")
 
+    print("Gude")
     matchedDataName = matchedDataPath + "005_t4_childrenballbath.csv"
     proc = GazeBehaviourProcession(matchedDataName)
     df = pd.read_csv(matchedDataName, header=None)

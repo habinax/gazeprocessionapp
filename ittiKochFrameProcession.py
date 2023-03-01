@@ -2,8 +2,6 @@ import time
 from os import listdir
 from os.path import isfile, join
 
-import pysaliency
-import matplotlib.pyplot as plt
 import cv2
 
 import main

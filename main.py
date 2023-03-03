@@ -1,20 +1,17 @@
+import os
+
 import pandas as pd
 import configparser
-import scipy.stats as st
-
-import cv2
-import numpy as np
 
 import gazedata_preprocession
 from GazeBehaviourProcession import GazeBehaviourProcession
 import ittiKochFrameProcession
-import pySaliencyMapDefs
 import video_procession
 
 config = configparser.ConfigParser()
 config.read('config.properties')
 
-projectPath = config['SETTINGS']['ProjectPath']
+projectPath = os.getcwd() + "\\"
 dataPath = projectPath + "venv\\data\\"
 gazeDataPath = dataPath + "gazedata\\"
 videoDataPath = dataPath + "videos\\"

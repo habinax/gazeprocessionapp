@@ -1,15 +1,11 @@
 import csv
-import time
 from os import listdir
 import cv2
 import numpy as np
 import scipy.stats as st
 import pandas as pd
-import matplotlib.pyplot as plt
 from pathlib import Path
-import ittiKochFrameProcession
 import main
-import gazedata_preprocession
 
 
 class GazeBehaviourProcession:

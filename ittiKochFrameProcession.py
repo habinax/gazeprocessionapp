@@ -8,12 +8,13 @@ import main
 import pySaliencyMap
 import numpy as np
 import pySaliencyMapDefs
-
+from pathlib import Path
 
 def ittiKochFrameProcession():
     framepath = join(main.videoDataPath, "Frames\\")
+    ittikochpath = join(main.videoDataPath, "IttiKochImages\\")
     files = [f for f in listdir(framepath) if isfile(join(framepath, f))]  # Aggregiert alle nicht kombinierten Files zusammen in eine Liste, um eventfiles zu extrahieren
-
+    Path(ittikochpath).mkdir(parents=True, exist_ok=True)
     for frame in files:
         print("Prozessiere Frame", frame)
         img = cv2.imread(join(framepath,frame))
@@ -30,7 +31,7 @@ def ittiKochFrameProcession():
 
         savestr = f'i{pySaliencyMapDefs.weight_intensity}c{pySaliencyMapDefs.weight_color}o{pySaliencyMapDefs.weight_orientation}m{pySaliencyMapDefs.weight_motion}'
 
-        salmapstr = "C:\\Users\\inap\\PycharmProjects\\gazeprocession\\venv\\data\\videos\\IttiKochImages\\"+savestr+"saliency_map_"+frame
+        salmapstr = ittikochpath+savestr+"saliency_map_"+frame
         # binmapstr = "C:\\Users\\inap\\PycharmProjects\\gazeprocession\\venv\\data\\videos\\IttiKochImages\\"+savestr+"binarized_map_"
         # salregstr = "C:\\Users\\inap\\PycharmProjects\\gazeprocession\\venv\\data\\videos\\IttiKochImages\\"+savestr+"salient_region_"
 

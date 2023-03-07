@@ -12,7 +12,7 @@ config = configparser.ConfigParser()
 config.read('config.properties')
 
 projectPath = os.getcwd() + "\\"
-dataPath = projectPath + "venv\\data\\"
+dataPath = projectPath + ".env\\data\\"
 gazeDataPath = dataPath + "gazedata\\"
 videoDataPath = dataPath + "videos\\"
 matchedDataPath = gazeDataPath + "combined_gazedata\\video_matched_data\\"
@@ -42,8 +42,7 @@ if __name__ == '__main__':
         ittiKochFrameProcession.ittiKochFrameProcession()
         print("Erstellen der Saliency Maps abgeschlossen.")
 
-    print("Gude")
-    matchedDataName = matchedDataPath + "005_t4_childrenballbath.csv"
+    matchedDataName = matchedDataPath + "005_t2_S54surprised.csv"
     proc = GazeBehaviourProcession(matchedDataName)
     df = pd.read_csv(matchedDataName, header=None)
     length = len(df.index)/(eyeTrackerSamplingRate / videofpscount[videonames.index(matchedDataName.split("_")[-1].split(".")[0])])

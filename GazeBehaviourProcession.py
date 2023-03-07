@@ -147,7 +147,7 @@ class GazeBehaviourProcession:
         if len(df)/(100/percentile) > df.count(0.0): #0.0 gilt als NICHT VALID
             return True
 
-        print("Data invalid -", df.count(0.0), "von 10 Einträgen sind ungültig.")
+        print("Data invalid -", df.count(0.0), "von", len(df) ,"Einträgen sind ungültig.")
         return False
 
     def gkern(self, kernlen, nsig=1.0):

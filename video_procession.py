@@ -1,12 +1,14 @@
 import cv2
 from os import listdir
 from os.path import isfile, join
+from pathlib import Path
 
 import main
 
 
 def splitVideosToFrames():
     framePath= main.videoDataPath + "Frames\\"
+    Path(framePath).mkdir(parents=True, exist_ok=True)
     onlyfiles = [f for f in listdir(main.videoDataPath) if isfile(join(main.videoDataPath, f))]
     for item in onlyfiles:
         frameNr = 0

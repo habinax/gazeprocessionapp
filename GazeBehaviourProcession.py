@@ -18,19 +18,15 @@ class GazeBehaviourProcession:
         self.data=pd.read_csv(csv_file,header=None)
         self.kernel = self.gkern(55 * 2 + 1, main.kernelsigma)
 
-    def matchGazeDataToFrame(self,startFrame,endFrame):
+    def matchGazeDataToFrame(self,videoframes,startFrame,endFrame):
         videoName=self.csv_file.split("\\")[-1].split("_")[-1][:-4]
         trackerTics=int(main.eyeTrackerSamplingRate / main.videofpscount[main.videonames.index(videoName)])
         gazeposXL,gazeposYL,gazeposXR,gazeposYR,timestamp=self.getXYPos()
         datapath= main.dataPath + "\\videos\\IttiKochImages"
         videoNameToSeach = "_"+videoName+"_"
         frames = [f for f in listdir(datapath) if videoNameToSeach in f]
-        videoframes = []
         picturelist = []
 
-        for f in frames:
-            videoframes.append(cv2.imread(datapath+"\\"+f))
-            print("Füge", f, "zur Liste hinzu.")
         if endFrame > int(frames[-1].split("_")[-1].split(".")[0]):
             endFrame = int(frames[-1].split("_")[-1].split(".")[0])
 

@@ -1,5 +1,6 @@
 import os
-
+from os.path import isfile, join
+import cv2
 import pandas as pd
 import configparser
 
@@ -16,6 +17,7 @@ dataPath = projectPath + ".env\\data\\"
 gazeDataPath = dataPath + "gazedata\\"
 videoDataPath = dataPath + "videos\\"
 matchedDataPath = gazeDataPath + "combined_gazedata\\video_matched_data\\"
+ittiKochImagesPath = videoDataPath + "IttiKochImages\\"
 
 combineFiles = config['SETTINGS']['CombineFiles']
 
@@ -42,8 +44,32 @@ if __name__ == '__main__':
         ittiKochFrameProcession.ittiKochFrameProcession()
         print("Erstellen der Saliency Maps abgeschlossen.")
 
-    matchedDataName = matchedDataPath + "005_t2_S54surprised.csv"
-    proc = GazeBehaviourProcession(matchedDataName)
-    df = pd.read_csv(matchedDataName, header=None)
-    length = len(df.index)/(eyeTrackerSamplingRate / videofpscount[videonames.index(matchedDataName.split("_")[-1].split(".")[0])])
-    proc.matchGazeDataToFrame(0,int(length))
+    filesToProcess = [f for f in os.listdir(matchedDataPath) if isfile(join(matchedDataPath, f))]
+    keyList = [f.split(".")[0].split("_")[-1] for f in filesToProcess]
+    keyList = list(dict.fromkeys(keyList))
+    print(filesToProcess)
+    videoframes=[]
+    for key in keyList:
+        frames = [f for f in os.listdir(ittiKochImagesPath) if "_"+key+"_" in f]
+        videoframes.append([key,frames])
+
+    #print(videoframes[keyList.index("childrenplaying")])
+
+    ittiKochFrames = []
+    finalFrameList = []
+
+    for i in range(len(keyList)):
+        for f in videoframes[i][1]:
+            ittiKochFrames.append(cv2.imread(ittiKochImagesPath + "\\" + f))
+            print("Füge", f, "zur Liste hinzu.")
+        finalFrameList.append([keyList[i], ittiKochFrames])
+        ittiKochFrames = []
+
+    filesToProcess=filesToProcess[:10]
+
+    for item in filesToProcess:
+        matchedDataName = matchedDataPath + item
+        proc = GazeBehaviourProcession(matchedDataName)
+        df = pd.read_csv(matchedDataName, header=None)
+        length = len(df.index)/(eyeTrackerSamplingRate / videofpscount[videonames.index(matchedDataName.split("_")[-1].split(".")[0])])
+        proc.matchGazeDataToFrame(finalFrameList[keyList.index(item.split("."[0].split("_")[-1]))][1],0,int(length))

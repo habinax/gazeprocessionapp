@@ -10,8 +10,7 @@ timeStampIndex = 26  #Stelle der timeStamp im CSV, startend bei index 0
 
 def pipeline():
     path = main.gazeDataPath
-    if main.combineFiles == "True":
-        combineColumns(path)
+    combineColumns(path)
     matchEvent(path)
 
 

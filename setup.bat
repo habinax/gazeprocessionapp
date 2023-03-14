@@ -1,2 +1,2 @@
-py -m virtualenv .env &  if not exist ".env\data" mkdir .env\data & if not exist ".env\data\videos" mkdir .env\data\videos & if not exist ".env\data\gazedata" mkdir .env\data\gazedata & .env\Scripts\activate && py -m pip install -r requirements.txt
+py -m virtualenv venv &  if not exist "venv\data" mkdir venv\data & if not exist "venv\data\videos" mkdir venv\data\videos & if not exist "venv\data\gazedata" mkdir venv\data\gazedata & venv\Scripts\activate && py -m pip install -r requirements.txt
 pause

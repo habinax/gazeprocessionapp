@@ -13,7 +13,7 @@ config = configparser.ConfigParser()
 config.read('config.properties')
 
 projectPath = os.getcwd() + "\\"
-dataPath = projectPath + ".env\\data\\"
+dataPath = projectPath + "venv\\data\\"
 gazeDataPath = dataPath + "gazedata\\"
 videoDataPath = dataPath + "videos\\"
 matchedDataPath = gazeDataPath + "combined_gazedata\\video_matched_data\\"

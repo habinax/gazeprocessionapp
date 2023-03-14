@@ -65,9 +65,12 @@ if __name__ == '__main__':
 
     filesToProcess=filesToProcess[:10]
 
-    for item in filesToProcess:
+        for item in filesToProcess:
         matchedDataName = matchedDataPath + item
+        print(matchedDataName)
         proc = GazeBehaviourProcession(matchedDataName)
         df = pd.read_csv(matchedDataName, header=None)
-        length = len(df.index)/(eyeTrackerSamplingRate / videofpscount[videonames.index(matchedDataName.split("_")[-1].split(".")[0])])
-        proc.matchGazeDataToFrame(finalFrameList[keyList.index(item.split("."[0].split("_")[-1]))][1],0,int(length))
+        print(videofpscount[videonames.index(matchedDataName.split("_")[-1].split(".")[0])])
+        fpscount = videofpscount[videonames.index(matchedDataName.split("_")[-1].split(".")[0])]
+        length = len(df.index)/(eyeTrackerSamplingRate / fpscount)
+        proc.matchGazeDataToFrame(finalFrameList[keyList.index(item.split(".")[0].split("_")[-1])][1],0,int(length))

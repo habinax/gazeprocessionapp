@@ -1,7 +1,7 @@
 Zum Aufsetzen der Applikation:
 
 1. Python herunterladen: https://www.python.org/downloads/ (am besten bei direkt bei der Installation pip mit installieren, sonst muss es nachträglich hinzugefügt werden)
-2. In CMD überprüfen ob Python und pip installiert sind durch folgende Kommandos: "python --version" und "pip"
+2. In CMD überprüfen ob Python und pip installiert sind durch folgende Kommandos: "py --version" und "py -m pip"
 3. In dem Verzeichnis, in dem die Applikation cloned wurde, die setup.bat Datei ausführen
 3.1. Falls es Probleme bei dem Erstellen der virtualenv gibt das Kommando "py -m pip install virtualenv" ausführen und anschließend erneut die setup.bat Datei ausführen
 

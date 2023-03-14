@@ -8,8 +8,9 @@ Zum Aufsetzen der Applikation:
 Falls die gesamten Dependencies ordnungsgemäß heruntergeladen wurden nun folgende Schritte vollziehen:
 
 4. Die gesamten erhobenen Daten (timestamps, gazedata, event, calibpoints (falls vorhanden)) in .env/data/gazedata abspeichern
-5. Die Videos in .env/data/videos abspeichern
-6. Zum Starten der Applikation das Kommando "py -m main" am Speicherort des Projekts ausführen
+5. Alle Videos, die als Events in der Gazedata vorhanden sind, in .env/data/videos abspeichern
+6. In der config.properties Datei die benötigten Flags auf "True" (Case-sensitive!) setzen
+7. Zum Starten der Applikation das Kommando "py -m main" am Speicherort des Projekts ausführen
 
 
 ##############################################################

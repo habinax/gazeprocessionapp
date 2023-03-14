@@ -19,8 +19,6 @@ videoDataPath = dataPath + "videos\\"
 matchedDataPath = gazeDataPath + "combined_gazedata\\video_matched_data\\"
 ittiKochImagesPath = videoDataPath + "IttiKochImages\\"
 
-combineFiles = config['SETTINGS']['CombineFiles']
-
 videonames = ["childrenballbath","childrenparty","childrenplay","childrenplaying","S54surprised"]
 videofpscount = [50, 30, 30, 25, 25]
 eyeTrackerSamplingRate = 300  #default setting

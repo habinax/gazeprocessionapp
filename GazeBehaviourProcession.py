@@ -33,10 +33,10 @@ class GazeBehaviourProcession:
         for r in range(startFrame,endFrame):
             if self.checkDataForValidity(self.csv_file,main.validityPercentile,r*trackerTics,r*trackerTics+trackerTics):
                 print("Prozessiere Frame Nr.", r)
-                xl=[i for i in gazeposXL[int(r*trackerTics):int((r+1)*trackerTics)] if i>-1 and i<1]
-                yl=[i for i in gazeposYL[int(r*trackerTics):int((r+1)*trackerTics)] if i>-1 and i<1]
-                xr=[i for i in gazeposXR[int(r*trackerTics):int((r+1)*trackerTics)] if i>-1 and i<1]
-                yr=[i for i in gazeposYR[int(r*trackerTics):int((r+1)*trackerTics)] if i>-1 and i<1]
+                xl=[i for i in gazeposXL[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
+                yl=[i for i in gazeposYL[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
+                xr=[i for i in gazeposXR[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
+                yr=[i for i in gazeposYR[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
 
 
                 if len(xl)>(trackerTics/(100/main.validityPercentile)) and len(xr)>(trackerTics/(100/main.validityPercentile)) and \
@@ -80,9 +80,7 @@ class GazeBehaviourProcession:
         # Ermittle die Höhe und Breite des Bildes
         height, width = image.shape[:2]
         flag = False
-
-        midx,midy = int(round(width/2)),int(round(height/2))
-        x,y=round(int(midx+midx*xpos)),round(int(midy+midy*ypos))
+        x,y=round(int(width*xpos)),round(int(height*ypos))
         radius = 55
         if x>=width-55:
             x=width-56

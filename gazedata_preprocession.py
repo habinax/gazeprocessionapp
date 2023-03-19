@@ -78,19 +78,18 @@ def combineColumns(path):
     gazefiles = [f for f in listdir(path) if isfile(join(path, f))]     #Aggregiert alle Files zusammen in eine Liste
     groups = [list(g) for _, g in itertools.groupby(sorted(gazefiles), lambda x: x[0:6])]    #Gruppiert die Daten anhand der ersten 6 Buchstaben des Namens (siehe letzte Expression x[0:6])
 
-    combined_data_path=path+"combined_gazedata\\"
-    Path(combined_data_path).mkdir(parents=True, exist_ok=True)
+    combined_data_path=path+"combined_gazedata\\" #Ort, an dem die Daten abgespeichert werden
+    Path(combined_data_path).mkdir(parents=True, exist_ok=True) #Erstellt Ordner, falls nicht bereits vorhanden
 
-    for g in groups:
-        print(len(groups))
-        if len(g)==4:
-            filelist=[pd.read_csv(path+g[2], header = None),pd.read_csv(path+g[3],header = None)]
+        for g in groups:
+        if len(g)==4: # 4 falls calibpoints Datei vorhanden ist
+            filelist=[pd.read_csv(path+g[2], header = None),pd.read_csv(path+g[3],header = None)] # Liest Daten von gazedata und timestamps Datei ein
             if len(filelist[0].index) == len(filelist[1].index):
                 excl_merged = pd.concat(filelist, axis=1)
                 print(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1])
                 excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False)
-        elif len(g)==3:
-            filelist = [pd.read_csv(path + g[1], header = None), pd.read_csv(path + g[2], header = None)]
+        elif len(g)==3: # 4 falls calibpoints Datei nicht vorhanden ist
+            filelist = [pd.read_csv(path + g[1], header = None), pd.read_csv(path + g[2], header = None)] # Liest Daten von gazedata und timestamps Datei ein
             if len(filelist[1].index) == len(filelist[0].index):
                 excl_merged = pd.concat(filelist, axis=1)
                 print(combined_data_path + g[0].split("_")[0] + "_" + g[0].split("_")[1])

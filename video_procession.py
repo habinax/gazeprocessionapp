@@ -17,8 +17,8 @@ def splitVideosToFrames():
         while (True):
             success, frame = capture.read()
             if success:
-                formattedFrameNr="{:04d}".format(frameNr)
-                frameName = (f'{framePath}{item[0:-4]}_{formattedFrameNr}.jpg')
+                formattedFrameNr="{:04d}".format(frameNr) # Die Frame Nr wird in das Format von 4 Ziffern gebracht - aus 1 wird 0001
+                frameName = (f'{framePath}{item[0:-4]}_{formattedFrameNr}.jpg') # item[0:-4] nimmt den Namen des videos ohne die ".mp4" Endung
                 print(frameName)
                 cv2.imwrite(frameName, frame)
             else:

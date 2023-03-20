@@ -66,7 +66,7 @@ def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
         writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
         print(writePath)
 
-        gazeDataFile.iloc[start:end,:].to_csv(writePath,header=None)
+        gazeDataFile.iloc[start:end,:].to_csv(writePath,header=None) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
 
 
 def index_2d(myList, v):

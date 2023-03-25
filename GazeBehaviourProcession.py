@@ -45,21 +45,9 @@ class GazeBehaviourProcession:
 
                 if len(xl)>(trackerTics/(100/main.validityPercentile)) and len(xr)>(trackerTics/(100/main.validityPercentile)) and \
                         len(yl)>(trackerTics/(100/main.validityPercentile)) and len(yr)>(trackerTics/(100/main.validityPercentile)):
-                    # print(xl, len(xl))
-                    # print(yl, len(yl))
-                    # print(xr, len(xr))
-                    # print(yr, len(yr))
-                    #
-                    # print(np.mean(xl))
-                    # print(np.mean(yl))
-                    # print(np.mean(xr))
-                    # print(np.mean(yr))
 
                     xpos = (np.mean(xl) + np.mean(xr)) / 2
                     ypos = (np.mean(yl) + np.mean(yr)) / 2
-
-                    # print("Xpos: ", xpos)
-                    # print("Ypos: ", ypos)
 
                     imageGrayValue, flag = self.getImageFractal(videoframes[r],xpos,ypos)
                     if flag:
@@ -85,18 +73,18 @@ class GazeBehaviourProcession:
         height, width = image.shape[:2]
         flag = False
         x,y=round(int(width*xpos)),round(int(height*ypos))
-        radius = 55
-        if x>=width-55:
-            x=width-56
+        radius = self.radius
+        if x>=width-radius:
+            x=width-(radius+1)
             flag=1
-        elif x<=55:
-            x=56
+        elif x<=radius:
+            x=radius+1
             flag = 1
-        if y>=height-55:
-            y=height-56
+        if y>=height-radius:
+            y=height-(radius+1)
             flag = 1
-        elif y<=55:
-            y=56
+        elif y<=radius:
+            y=radius+1
             flag = 1
 
         result=image[y-radius:y+radius+1,x-radius:x+radius+1]

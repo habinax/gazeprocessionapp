@@ -16,7 +16,11 @@ class GazeBehaviourProcession:
     def __init__(self, csv_file):
         self.csv_file = csv_file
         self.data=pd.read_csv(csv_file,header=None)
-        self.kernel = self.gkern(55 * 2 + 1, main.kernelsigma)
+        self.videoName=csv_file.split("\\")[-1].split("_")[-1][:-4]
+        height, width = cv2.imread(main.dataPath + "\\videos\\IttiKochImages\\" + listdir(main.dataPath + "\\videos\\IttiKochImages")[0]).shape[0],\
+                        cv2.imread(main.dataPath + "\\videos\\IttiKochImages\\" + listdir(main.dataPath + "\\videos\\IttiKochImages")[0]).shape[1]
+        self.radius = round(math.sqrt(height+width))
+        self.kernel = self.gkern(self.radius * 2 + 1, main.kernelsigma)
 
     def matchGazeDataToFrame(self,videoframes,startFrame,endFrame):
         videoName=self.csv_file.split("\\")[-1].split("_")[-1][:-4]

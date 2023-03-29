@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     filesToProcess=filesToProcess[:10]
 
-        for item in filesToProcess:
+    for item in filesToProcess:
         matchedDataName = matchedDataPath + item
         print(matchedDataName)
         proc = GazeBehaviourProcession(matchedDataName)

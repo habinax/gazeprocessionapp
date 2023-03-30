@@ -81,7 +81,7 @@ def combineColumns(path):
     combined_data_path=path+"combined_gazedata\\" #Ort, an dem die Daten abgespeichert werden
     Path(combined_data_path).mkdir(parents=True, exist_ok=True) #Erstellt Ordner, falls nicht bereits vorhanden
 
-        for g in groups:
+    for g in groups:
         if len(g)==4: # 4 falls calibpoints Datei vorhanden ist
             filelist=[pd.read_csv(path+g[2], header = None),pd.read_csv(path+g[3],header = None)] # Liest Daten von gazedata und timestamps Datei ein
             if len(filelist[0].index) == len(filelist[1].index):

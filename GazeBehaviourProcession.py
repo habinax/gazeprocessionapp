@@ -7,6 +7,7 @@ import pandas as pd
 from pathlib import Path
 import main
 import math
+import time
 
 
 class GazeBehaviourProcession:
@@ -24,6 +25,7 @@ class GazeBehaviourProcession:
         self.kernel = self.gkern(self.radius * 2 + 1, main.kernelsigma)
 
     def matchGazeDataToFrame(self,videoframes,startFrame,endFrame):
+        start_time = time.time()
         videoName=self.csv_file.split("\\")[-1].split("_")[-1][:-4]
         trackerTics=int(main.eyeTrackerSamplingRate / main.videofpscount[main.videonames.index(videoName)])
         gazeposXL,gazeposYL,gazeposXR,gazeposYR,timestamp=self.getXYPos()
@@ -68,6 +70,10 @@ class GazeBehaviourProcession:
             writer = csv.writer(f)
             writer.writerow(['Frame Nr','Timestamp','Graustufenwert','Blickpunkt verschoben'])
             writer.writerows(picturelist)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        with open('execution_time_10_result_files_all_data.txt', 'a') as file:
+            file.write(f'{self.csv_file}: {execution_time:.6f}\n')
 
     def getImageFractal(self,image,xpos,ypos):
         # Ermittle die Höhe und Breite des Bildes

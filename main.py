@@ -34,8 +34,8 @@ if __name__ == '__main__':
         gazedata_preprocession.pipeline()
         end_time = time.time()
         execution_time = end_time - start_time
-            with open('execution_time_gazedata_preprocession.txt', 'a') as file:
-        file.write(f'gazedata_preprocession: {execution_time:.6f} seconds\n')
+        with open('execution_time_gazedata_preprocession.txt', 'a') as file:
+            file.write(f'gazedata_preprocession: {execution_time:.6f}\n')
         print("Gazedata Vorverarbeitung abgeschlossen.")
     
     if config['SETTINGS']['SplitVideo'] == "True":
@@ -44,8 +44,8 @@ if __name__ == '__main__':
         video_procession.splitVideosToFrames()
         end_time = time.time()
         execution_time = end_time - start_time
-            with open('execution_time_video_splitting.txt', 'a') as file:
-        file.write(f'video_splitting: {execution_time:.6f} seconds\n')
+        with open('execution_time_video_splitting.txt', 'a') as file:
+            file.write(f'video_splitting: {execution_time:.6f}\n')
         print("Aufteilung in Frames abgeschlossen.")
     
     
@@ -55,8 +55,8 @@ if __name__ == '__main__':
         ittiKochFrameProcession.ittiKochFrameProcession()
         end_time = time.time()
         execution_time = end_time - start_time
-            with open('execution_time_saliency_maps.txt', 'a') as file:
-        file.write(f'saliency_maps: {execution_time:.6f} seconds\n')
+        with open('execution_time_saliency_maps.txt', 'a') as file:
+            file.write(f'saliency_maps: {execution_time:.6f}\n')
         print("Erstellen der Saliency Maps abgeschlossen.")
     
     start_time = time.time() 
@@ -97,5 +97,5 @@ if __name__ == '__main__':
     end_time = time.time()
     execution_time = end_time - start_time
     with open('execution_time_10_result_files.txt', 'a') as file:
-        file.write(f'result_files: {execution_time:.6f} seconds\n')
+        file.write(f'result_files: {execution_time:.6f}\n')
     

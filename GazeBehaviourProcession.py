@@ -66,7 +66,7 @@ class GazeBehaviourProcession:
 
         resultPath = main.dataPath+"Ergebnisse\\"
         Path(resultPath).mkdir(parents=True, exist_ok=True)
-        with open(resultPath+frames[0][:16]+self.csv_file.split("\\")[-1], "w", newline="") as f:
+        with open(resultPath+frames[0][:16]+"_"+self.csv_file.split("\\")[-1], "w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(['Frame Nr','Timestamp','Graustufenwert','Blickpunkt verschoben'])
             writer.writerows(picturelist)

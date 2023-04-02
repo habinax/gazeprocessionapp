@@ -67,7 +67,7 @@ def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
             writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
             print(writePath)
 
-            gazeDataFile.iloc[start:end,:].to_csv(writePath,header=None) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
+            gazeDataFile.iloc[start:end,:].to_csv(writePath,index=False, header = False) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
         else:
             print("Fehler beim Prozessieren von", dataPath, "aufgetreten. Proband wird übersprungen.")
 
@@ -90,13 +90,13 @@ def combineColumns(path):
             if len(filelist[0].index) == len(filelist[1].index):
                 excl_merged = pd.concat(filelist, axis=1)
                 print(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1])
-                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False)
+                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False, header = False)
         elif len(g)==3: # 4 falls calibpoints Datei nicht vorhanden ist
             filelist = [pd.read_csv(path + g[1], header = None), pd.read_csv(path + g[2], header = None)] # Liest Daten von gazedata und timestamps Datei ein
             if len(filelist[1].index) == len(filelist[0].index):
                 excl_merged = pd.concat(filelist, axis=1)
                 print(combined_data_path + g[0].split("_")[0] + "_" + g[0].split("_")[1])
-                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False)
+                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False, header = False)
 
 def getVideoFrameNumbersWithSampleRate(path):
     videoLength=[]

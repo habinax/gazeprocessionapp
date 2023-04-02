@@ -62,11 +62,14 @@ def matchEvent(path):
 
 def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
     for event in eventList:
-        vidName, start, end = event[0],event[1],event[2]
-        writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
-        print(writePath)
+        if len(eventList) != 3:
+            vidName, start, end = event[0],event[1],event[2]
+            writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
+            print(writePath)
 
-        gazeDataFile.iloc[start:end,:].to_csv(writePath,header=None) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
+            gazeDataFile.iloc[start:end,:].to_csv(writePath,header=None) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
+        else:
+            print("Fehler beim Prozessieren von", dataPath, "aufgetreten. Proband wird übersprungen.")
 
 
 def index_2d(myList, v):

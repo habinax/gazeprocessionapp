@@ -62,7 +62,7 @@ def matchEvent(path):
 
 def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
     for event in eventList:
-        if len(eventList) != 3:
+        if len(event) == 3:
             vidName, start, end = event[0],event[1],event[2]
             writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
             print(writePath)

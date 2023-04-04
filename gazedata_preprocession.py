@@ -26,6 +26,10 @@ def matchEvent(path):
 
     pathToWrite = combinedDataPath + "video_matched_data\\"
     Path(pathToWrite).mkdir(parents=True, exist_ok=True)
+    
+    if len(eventFiles) != len(combinedFiles):
+        print("Ungleiche Anzahl an Event-Dateien und combined Gazedata! Programm wird beendet.")
+        quit()
 
     for var in range(len(eventFiles)):
         event = pd.read_csv(path + eventFiles[var], header = None)

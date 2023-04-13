@@ -10,7 +10,7 @@ Falls die gesamten Dependencies ordnungsgemäß heruntergeladen wurden nun folge
 4. Die gesamten erhobenen Daten (timestamps, gazedata, event, calibpoints (falls vorhanden)) in venv/data/gazedata abspeichern
 5. Alle Videos, die als Events in der Gazedata vorhanden sind, in venv/data/videos abspeichern
 6. In der config.properties Datei die benötigten Flags auf "True" (Case-sensitive!) setzen
-7. Zum Starten der Applikation das Kommando "py -m main" am Speicherort des Projekts ausführen
+7. Zum Starten der Applikation entweder die batch-Datei "Applikation_starten" ausführen, oder per  das Kommando "py -m main" am Speicherort des Projekts ausführen
 
 
 ##############################################################

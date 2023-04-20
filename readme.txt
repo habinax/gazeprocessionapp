@@ -1,32 +1,32 @@
-Zum Aufsetzen der Applikation:
+To setup the application:
 
-1. Python herunterladen: https://www.python.org/downloads/ (am besten bei direkt bei der Installation pip mit installieren, sonst muss es nachträglich hinzugefügt werden)
-2. In CMD überprüfen ob Python und pip installiert sind durch folgende Kommandos: "py --version" und "py -m pip"
-3. In dem Verzeichnis, in dem die Applikation cloned wurde, die setup.bat Datei ausführen
-3.1. Falls Probleme bei dem Erstellen der virtualenv auftreten, das Kommando "py -m pip install virtualenv" ausführen und anschließend erneut die setup.bat Datei ausführen
+1. Download python: https://www.python.org/downloads/ (install pip while downloading, otherwise it has to be added later on manuually)
+2. Check if python and pip are installed by the following command: "py --version" und "py -m pip"
+3. Execute the setup.bat file in the directory of the application
+3.1. If problems with virtualenv occur, run the command "py -m pip install virtualenv" and try executing the setup.bat file again
 
-Falls die gesamten Dependencies ordnungsgemäß heruntergeladen wurden nun folgende Schritte vollziehen:
+If the dependencies have been downloaded properly:
 
-4. Die gesamten erhobenen Daten (timestamps, gazedata, event, calibpoints (falls vorhanden)) in venv/data/gazedata abspeichern
-5. Alle Videos, die als Events in der Gazedata vorhanden sind, in venv/data/videos abspeichern
-6. In der config.properties Datei die benötigten Flags auf "True" (Case-sensitive!) setzen
-7. Zum Starten der Applikation entweder die batch-Datei "Applikation_starten" ausführen
+4. Save the data (timestamps, gazedata, event, calibpoints (if existing)) in venv/data/gazedata
+5. Save all videos, that have been shown to the subjects, in venv/data/videos
+6. Set all flags in the config.properties file to "True" (Case-sensitive!)
+7. Execute the "Applikation_starten" file to start the program
 
 
 
 ##############################################################
 
-config.properties Erklärung: 
+config.properties explanation: 
 
-DataPreProcession = True/False    --- Wert True (case sensivite!), falls die Daten noch nicht vorverarbeitet worden sind, sonst False
-SplitVideo = True/False           --- Wert True, falls die Videos noch nicht in einzelne Frames aufgespalten worden sind, sonst False
-CreateIttiKochFrames = True/False --- Wert True, falls Itti-Koch saliency maps erstellt werden sollen, sonst False
+DataPreProcession = True/False    --- True (case sensivite!) if the data hasn't been pre processed, otherwise False
+SplitVideo = True/False           --- True if the videos haven't been split up to frames, otherwise False
+CreateIttiKochFrames = True/False --- True if saliency maps should be created, otherwise False
 
-weight_intensity   = 0.30         --- Parameter für die Erstellung der Itti-Koch saliency map
-weight_color       = 0.30         --- Parameter für die Erstellung der Itti-Koch saliency map
-weight_orientation = 0.20         --- Parameter für die Erstellung der Itti-Koch saliency map
-weight_motion      = 0.20         --- Parameter für die Erstellung der Itti-Koch saliency map
-Cutoff = 30                       --- Der Wert in Prozent, ab dem Daten für ungültig befunden werden - Abhängig von Anzahl der Gaze-Daten pro Frame: Sollten bei beispielsweise 10 Gazedata Einträgen, die zu einem Frame gehören, mehr als [Cutoff]% davon ungültig sein, so werden die Daten als nicht relevant gewertet. Je niedriger der Cutoff, desto höher die Toleranz.
-KernelSigma = 1.0                 --- Der Sigma-Wert des 2D-Gauss-Kernels, der die Relevanz der Pixel innerhalb des Blickpunktes bestimmt.
+weight_intensity   = 0.30         --- parameter for the creation of the Itti-Koch saliency map
+weight_color       = 0.30         --- parameter for the creation of the Itti-Koch saliency map
+weight_orientation = 0.20         --- parameter for the creation of the Itti-Koch saliency map
+weight_motion      = 0.20         --- parameter for the creation of the Itti-Koch saliency map
+Cutoff = 30                       --- The value in percent, which is defining the cut off. The lower the cutoff value, the higher is the tolerance.
+KernelSigma = 1.0                 --- The sigma value for the 2d gauss kernel
 
 ##############################################################

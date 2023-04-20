@@ -31,16 +31,16 @@ def matchEvent(path):
         event = pd.read_csv(path + eventFiles[var], header = None)
         comb = pd.read_csv(combinedDataPath + combinedFiles[var], header = None)
 
-        print("Suche in: " + combinedFiles[var])
+        print("Searching in: " + combinedFiles[var])
         searchVar="natorient_"
         natorientEvent = []
         print(eventFiles[var],combinedFiles[var])
         for name in main.videonames:
             fullSearchVar = searchVar+name
-            print("Suche nach: " + fullSearchVar)
+            print("Searching for: " + fullSearchVar)
             for index in event.index:
                 if event.iloc[index, 0].endswith(fullSearchVar):
-                    print("Gefunden in Zeile: " + str(index))
+                    print("Found in row: " + str(index))
                     natorientEvent.append([fullSearchVar, event.iloc[index, 1]])
 
         for x in range(len(natorientEvent)):
@@ -56,7 +56,6 @@ def matchEvent(path):
                     natorientEvent[x].append(endRow)
                     print(natorientEvent)
                     break
-        print("natorientevent:" ,natorientEvent)
         writeEventDataToCSV(natorientEvent, comb, pathToWrite + combinedFiles[var].partition("_")[2])
 
 def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
@@ -68,7 +67,7 @@ def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
 
             gazeDataFile.iloc[start:end,:].to_csv(writePath,header=False) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
         else:
-            print("Feher beim Prozessieren von ", dataPath, "aufgetreten. Objekt wird übersprungen")
+            print("There was an error while processing", dataPath, ". Skipping object.")
 
 
 def index_2d(myList, v):

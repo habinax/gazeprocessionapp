@@ -13,7 +13,7 @@ def splitVideosToFrames():
     for item in onlyfiles:
         frameNr = 0
         capture = cv2.VideoCapture(join(main.videoDataPath, item))
-        print("Prozessiere ", item)
+        print("Processing ", item)
         while (True):
             success, frame = capture.read()
             if success:
@@ -25,4 +25,4 @@ def splitVideosToFrames():
                 break
             frameNr += 1
         capture.release()
-    print("Frames abgespeichert.")
+    print("Frames saved.")

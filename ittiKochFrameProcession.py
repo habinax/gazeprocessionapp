@@ -16,7 +16,7 @@ def ittiKochFrameProcession():
     files = [f for f in listdir(framepath) if isfile(join(framepath, f))]  # Aggregiert alle nicht kombinierten Files zusammen in eine Liste, um eventfiles zu extrahieren
     Path(ittikochpath).mkdir(parents=True, exist_ok=True)
     for frame in files:
-        print("Prozessiere Frame", frame)
+        print("Processing frame", frame)
         img = cv2.imread(join(framepath,frame))
         # initialize
         imgsize = img.shape

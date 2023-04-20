@@ -1,6 +1,6 @@
 To setup the application:
 
-1. Download python: https://www.python.org/downloads/ (install pip while downloading, otherwise it has to be added later on manuually)
+1. Download python: https://www.python.org/downloads/ (install pip while downloading, otherwise it has to be added later on manually)
 2. Check if python and pip are installed by the following command: "py --version" und "py -m pip"
 3. Execute the setup.bat file in the directory of the application
 3.1. If problems with virtualenv occur, run the command "py -m pip install virtualenv" and try executing the setup.bat file again
@@ -10,7 +10,7 @@ If the dependencies have been downloaded properly:
 4. Save the data (timestamps, gazedata, event, calibpoints (if existing)) in venv/data/gazedata
 5. Save all videos, that have been shown to the subjects, in venv/data/videos
 6. Set all flags in the config.properties file to "True" (Case-sensitive!)
-7. Execute the "Applikation_starten" file to start the program
+7. Execute the "start_application.bat" file to start the program
 
 
 

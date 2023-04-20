@@ -6,6 +6,7 @@ import scipy.stats as st
 import pandas as pd
 from pathlib import Path
 import main
+import math
 
 
 class GazeBehaviourProcession:
@@ -16,6 +17,7 @@ class GazeBehaviourProcession:
     def __init__(self, csv_file):
         self.csv_file = csv_file
         self.data=pd.read_csv(csv_file,header=None)
+        self.validityPercentile = 100/main.validityPercentile
         self.videoName=csv_file.split("\\")[-1].split("_")[-1][:-4]
         height, width = cv2.imread(main.dataPath + "\\videos\\IttiKochImages\\" + listdir(main.dataPath + "\\videos\\IttiKochImages")[0]).shape[0],\
                         cv2.imread(main.dataPath + "\\videos\\IttiKochImages\\" + listdir(main.dataPath + "\\videos\\IttiKochImages")[0]).shape[1]
@@ -35,16 +37,16 @@ class GazeBehaviourProcession:
             endFrame = int(frames[-1].split("_")[-1].split(".")[0])
 
         for r in range(startFrame,endFrame):
-            if self.checkDataForValidity(self.csv_file,main.validityPercentile,r*trackerTics,r*trackerTics+trackerTics):
-                print("Prozessiere Frame Nr.", r)
+            if self.checkDataForValidity(r*trackerTics,r*trackerTics+trackerTics):
+                print("Processing frame nr.", r)
                 xl=[i for i in gazeposXL[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
                 yl=[i for i in gazeposYL[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
                 xr=[i for i in gazeposXR[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
                 yr=[i for i in gazeposYR[int(r*trackerTics):int((r+1)*trackerTics)] if i>0 and i<1]
 
 
-                if len(xl)>(trackerTics/(100/main.validityPercentile)) and len(xr)>(trackerTics/(100/main.validityPercentile)) and \
-                        len(yl)>(trackerTics/(100/main.validityPercentile)) and len(yr)>(trackerTics/(100/main.validityPercentile)):
+                if len(xl)>(trackerTics/self.validityPercentile) and len(xr)>(trackerTics/self.validityPercentile) and \
+                        len(yl)>(trackerTics/self.validityPercentile) and len(yr)>(trackerTics/self.validityPercentile):
 
                     xpos = (np.mean(xl) + np.mean(xr)) / 2
                     ypos = (np.mean(yl) + np.mean(yr)) / 2
@@ -63,7 +65,7 @@ class GazeBehaviourProcession:
 
         resultPath = main.dataPath+"Ergebnisse\\"
         Path(resultPath).mkdir(parents=True, exist_ok=True)
-        with open(resultPath+frames[0][:16]+"\\"+self.csv_file.split("\\")[-1], "w", newline="") as f:
+        with open(resultPath+frames[0][:16]+"_"+self.csv_file.split("\\")[-1], "w", newline="") as f:
             writer = csv.writer(f)
             writer.writerow(['Frame Nr','Timestamp','Graustufenwert','Blickpunkt verschoben'])
             writer.writerows(picturelist)
@@ -123,17 +125,17 @@ class GazeBehaviourProcession:
 
         return gazeposXL, gazeposYL, gazeposXR, gazeposYR, timestamp
 
-    def checkDataForValidity(self, data, percentile, optstart=None,optend=None):
+    def checkDataForValidity(self, optstart=None,optend=None):
         df=self.data
         if optstart and optend is None:
             df=df.iloc[:,1]
         else:
             df=df.iloc[optstart:optend,1]
         df=df.values.tolist()
-        if len(df)/(100/percentile) > df.count(0.0): #0.0 gilt als NICHT VALID
+        if len(df)/(self.validityPercentile) > df.count(0.0): #0.0 gilt als NICHT VALID
             return True
 
-        print("Data invalid -", df.count(0.0), "von", len(df) ,"Einträgen sind ungültig.")
+        print("Data invalid -", df.count(0.0), "of", len(df) ,"entries invalid.")
         return False
 
     def gkern(self, kernlen, nsig=1.0):

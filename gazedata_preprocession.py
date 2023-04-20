@@ -5,14 +5,14 @@ import pandas as pd
 from pathlib import Path
 import cv2
 import main
+import time
 
 timeStampIndex = 26  #Stelle der timeStamp im CSV, startend bei index 0
 
 def pipeline():
     path = main.gazeDataPath
-    combineColumns(path)
+    #combineColumns(path)
     matchEvent(path)
-
 
 
 def matchEvent(path):
@@ -34,7 +34,7 @@ def matchEvent(path):
         print("Suche in: " + combinedFiles[var])
         searchVar="natorient_"
         natorientEvent = []
-
+        print(eventFiles[var],combinedFiles[var])
         for name in main.videonames:
             fullSearchVar = searchVar+name
             print("Suche nach: " + fullSearchVar)
@@ -47,7 +47,6 @@ def matchEvent(path):
             videoNametoSearch=natorientEvent[x][0].split("_")[1]+".mp4"
             a,b=index_2d(eyeTrackerFrames,videoNametoSearch)
             framelen=eyeTrackerFrames[a][b+1]
-            print(framelen)
             for row in range(len(comb)):
                 if natorientEvent[x][1] < comb.iloc[row,timeStampIndex]:
                     startRow=row
@@ -57,16 +56,19 @@ def matchEvent(path):
                     natorientEvent[x].append(endRow)
                     print(natorientEvent)
                     break
-
+        print("natorientevent:" ,natorientEvent)
         writeEventDataToCSV(natorientEvent, comb, pathToWrite + combinedFiles[var].partition("_")[2])
 
 def writeEventDataToCSV(eventList, gazeDataFile, dataPath):
     for event in eventList:
-        vidName, start, end = event[0],event[1],event[2]
-        writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
-        print(writePath)
+        if len(event) == 3:
+            vidName, start, end = event[0],event[1],event[2]
+            writePath = dataPath.split(".")[0] + "_" + vidName.split("_")[1] + ".csv"
+            print(writePath)
 
-        gazeDataFile.iloc[start:end,:].to_csv(writePath,header=None) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
+            gazeDataFile.iloc[start:end,:].to_csv(writePath,header=False) #Extrahiert Daten von Start- bis Endpunkt und erstellt und schreibt sie in eine CSV Datei
+        else:
+            print("Feher beim Prozessieren von ", dataPath, "aufgetreten. Objekt wird übersprungen")
 
 
 def index_2d(myList, v):
@@ -87,13 +89,13 @@ def combineColumns(path):
             if len(filelist[0].index) == len(filelist[1].index):
                 excl_merged = pd.concat(filelist, axis=1)
                 print(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1])
-                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False)
+                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", header = False, index = False)
         elif len(g)==3: # 4 falls calibpoints Datei nicht vorhanden ist
             filelist = [pd.read_csv(path + g[1], header = None), pd.read_csv(path + g[2], header = None)] # Liest Daten von gazedata und timestamps Datei ein
             if len(filelist[1].index) == len(filelist[0].index):
                 excl_merged = pd.concat(filelist, axis=1)
-                print(combined_data_path + g[0].split("_")[0] + "_" + g[0].split("_")[1])
-                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", index=False)
+                print(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1])
+                excl_merged.to_csv(combined_data_path + "combined_" + g[0].split("_")[0] + "_" + g[0].split("_")[1] + ".csv", header = False, index = False)
 
 def getVideoFrameNumbersWithSampleRate(path):
     videoLength=[]

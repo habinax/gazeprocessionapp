@@ -53,21 +53,23 @@ class GazeBehaviourProcession:
 
                     imageGrayValue, flag = self.getImageFractal(videoframes[r],xpos,ypos)
                     if flag:
-                        picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],imageGrayValue, 1])
+                        picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],imageGrayValue, 1, xpos, ypos])
                     else:
-                        picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],imageGrayValue, 0])
+                        picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],imageGrayValue, 0, xpos, ypos])
+
 
 
                 else:
-                    picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],-1,-1])
+                    picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],-1,-1, 'NULL','NULL'])
             else:
-                picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],-1, -1])
+                picturelist.append(["Frame "+str(r),timestamp[r*trackerTics],-1, -1, 'NULL','NULL'])
+
 
         resultPath = main.dataPath+"Ergebnisse\\"
         Path(resultPath).mkdir(parents=True, exist_ok=True)
         with open(resultPath+frames[0][:16]+"_"+self.csv_file.split("\\")[-1], "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(['Frame Nr','Timestamp','Graustufenwert','Blickpunkt verschoben'])
+            writer.writerow(['Frame Nr','Timestamp','Grayscale value','Gazepoint corrected','Gazepoint(x)','Gazepoint(y)'])
             writer.writerows(picturelist)
 
     def getImageFractal(self,image,xpos,ypos):
